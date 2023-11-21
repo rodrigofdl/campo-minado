@@ -11,6 +11,8 @@ public class Espaco {
 
 	ArrayList<Espaco> vizinhos;
 
+	JButtonEspaco button;
+
 	// Cria todos os atributos falsos para depois sortear se vai ser verdadeiro ou
 	// falso
 	public Espaco() {
@@ -19,7 +21,7 @@ public class Espaco {
 		this.marcado = false;
 		this.clicado = false;
 
-		this.vizinhos = new ArrayList<Espaco>();
+		this.vizinhos = new ArrayList();
 	}
 
 	// Adiciona vizinho
@@ -49,6 +51,7 @@ public class Espaco {
 	// 0 não possui minas nos vizinhos
 	// n possui n minas nos vizinhos
 	public int clicar() {
+		this.clicado = true;
 		if (this.minado) {
 			return -1;
 		} else {
@@ -59,8 +62,8 @@ public class Espaco {
 	// Retorna a quantidade de minas que tem nos vizinhos
 	public int numeroMinasNosVizinhos() {
 		int n = 0;
-		for (Espaco e : this.vizinhos) {
-			if (e.minado)
+		for (Espaco vizinho : this.vizinhos) {
+			if (vizinho.minado)
 				n++;
 		}
 		return n;
@@ -72,6 +75,18 @@ public class Espaco {
 		this.revelado = false;
 		this.marcado = false;
 		this.clicado = false;
+	}
+
+	public boolean isFinalizado() {
+		if (this.minado && this.marcado)
+			return true;
+		if (!this.minado && !this.marcado && this.clicado)
+			return true;
+		return false;
+	}
+
+	public void setButton(JButtonEspaco button) {
+		this.button = button;
 	}
 
 	@Override
