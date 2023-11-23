@@ -5,6 +5,7 @@ import javax.swing.*;
 // Gráfico do campo
 
 // Interface do jogo
+// O extends serve para aplicar uma herança na classe
 public class JFrameCampo extends JFrame {
 	JPanel panel;
 	JButtonEspaco[][] matrizBotao;
@@ -23,11 +24,14 @@ public class JFrameCampo extends JFrame {
 	// Altera dificuldade
 	public void hardReset() {
 		CampoMinado.hardReset();
+		// O dispose serve para fechar a janela
 		this.dispose();
 	}
 
 	// Configurações da janela
 	private void confIniciais() {
+		// O this serve para chamar um atributo fora do método
+		// O new serve para criar um objeto
 		this.c = new Campo();
 		this.panel = new JPanel();
 		panel.setLayout(null);
