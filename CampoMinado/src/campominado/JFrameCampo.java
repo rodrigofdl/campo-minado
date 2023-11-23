@@ -2,13 +2,14 @@ package campominado;
 
 import javax.swing.*;
 
+// Gráfico do campo
+
 // Interface do jogo
 public class JFrameCampo extends JFrame {
 	JPanel panel;
 	JButtonEspaco[][] matrizBotao;
 	Campo c;
 	JButton resetButton;
-
 	JButton facilButton;
 	JButton medioButton;
 	JButton dificilButton;
@@ -19,6 +20,7 @@ public class JFrameCampo extends JFrame {
 		confIniciais();
 	}
 
+	// Altera dificuldade
 	public void hardReset() {
 		CampoMinado.hardReset();
 		this.dispose();
@@ -31,7 +33,6 @@ public class JFrameCampo extends JFrame {
 		panel.setLayout(null);
 		this.add(panel);
 		matrizBotao = new JButtonEspaco[Constantes.NUMERO_LINHAS][Constantes.NUMERO_COLUNAS];
-		int n = 0;
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
 				matrizBotao[i][j] = new JButtonEspaco(this.c, this);
@@ -40,6 +41,7 @@ public class JFrameCampo extends JFrame {
 				// matrizBotao[i][j].coluna = j;
 				matrizBotao[i][j].setPosicao(i, j);
 				matrizBotao[i][j].setSize(Constantes.TAMANHO_ESPACO, Constantes.TAMANHO_ESPACO);
+				matrizBotao[i][j].setFocusable(false);
 				matrizBotao[i][j].setLocation(Constantes.TAMANHO_ESPACO * j,
 						Constantes.TAMANHO_ESPACO * i + Constantes.OFFSET_SUPERIOR);
 				// matrizBotao[i][j].setText(Integer.toString(n++));
@@ -54,7 +56,8 @@ public class JFrameCampo extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 
-		this.resetButton = new JButton();
+		// Botão de iniciar/reiniciar o jogo
+		this.resetButton = new JButton("I/R");
 		this.resetButton.addActionListener((java.awt.event.ActionEvent evt) -> {
 			this.reset();
 		});
@@ -64,6 +67,7 @@ public class JFrameCampo extends JFrame {
 				Constantes.OFFSET_SUPERIOR - Constantes.TAMANHO_ESPACO);
 		this.panel.add(this.resetButton);
 
+		// Botão de dificuldade fácil
 		this.facilButton = new JButton("F");
 		this.facilButton.addActionListener((java.awt.event.ActionEvent evt) -> {
 			Constantes.NUMERO_COLUNAS = 6;
@@ -76,6 +80,7 @@ public class JFrameCampo extends JFrame {
 		this.facilButton.setLocation(0, 0);
 		this.panel.add(this.facilButton);
 
+		// Botão de dificuldade média
 		this.medioButton = new JButton("M");
 		this.medioButton.addActionListener((java.awt.event.ActionEvent evt) -> {
 			Constantes.NUMERO_COLUNAS = 10;
@@ -88,6 +93,7 @@ public class JFrameCampo extends JFrame {
 		this.medioButton.setLocation((Constantes.TAMANHO_ESPACO * Constantes.NUMERO_COLUNAS) / 4, 0);
 		this.panel.add(this.medioButton);
 
+		// Botão de dificuldade difícil
 		this.dificilButton = new JButton("D");
 		this.dificilButton.addActionListener((java.awt.event.ActionEvent evt) -> {
 			Constantes.NUMERO_COLUNAS = 16;
@@ -100,9 +106,19 @@ public class JFrameCampo extends JFrame {
 		this.dificilButton.setLocation((Constantes.TAMANHO_ESPACO * Constantes.NUMERO_COLUNAS) / 4 * 2, 0);
 		this.panel.add(this.dificilButton);
 
+		// Botão de customizar o jogo
 		this.customButton = new JButton("C");
 		this.customButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+			int l = Integer.parseInt(JOptionPane.showInputDialog("Insira #linha"));
+			Constantes.NUMERO_LINHAS = l;
 
+			int c = Integer.parseInt(JOptionPane.showInputDialog("Insira #coluna"));
+			Constantes.NUMERO_COLUNAS = c;
+
+			int m = Integer.parseInt(JOptionPane.showInputDialog("Insira #minas"));
+			Constantes.NUMERO_MINAS = m;
+
+			this.hardReset();
 		});
 		this.customButton.setSize((Constantes.TAMANHO_ESPACO * Constantes.NUMERO_COLUNAS) / 4,
 				Constantes.TAMANHO_ESPACO);
@@ -110,6 +126,7 @@ public class JFrameCampo extends JFrame {
 		this.panel.add(this.customButton);
 	}
 
+	// Inicia/Reinicia o jogo
 	public void reset() {
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
@@ -119,6 +136,7 @@ public class JFrameCampo extends JFrame {
 		this.c.adicionarMinas();
 	}
 
+	// Revela as minas
 	public void revelarMinas() {
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
@@ -129,6 +147,7 @@ public class JFrameCampo extends JFrame {
 		}
 	}
 
+	// Desativa os botões
 	public void desativaBotoes() {
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
@@ -137,6 +156,7 @@ public class JFrameCampo extends JFrame {
 		}
 	}
 
+	// Checar se venceu ou perdeu
 	public void checkEstado() {
 		System.out.println("Verificando se venceu ou perdeu");
 		if (this.c.isVencido()) {

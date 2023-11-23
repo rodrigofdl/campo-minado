@@ -2,7 +2,9 @@ package campominado;
 
 import java.util.ArrayList;
 
-// Espaço do jogo
+// Lógica do espaço
+
+// Espaço
 public class Espaco {
 	boolean minado;
 	boolean revelado;
@@ -77,6 +79,7 @@ public class Espaco {
 		this.clicado = false;
 	}
 
+	// Finaliza o jogo
 	public boolean isFinalizado() {
 		if (this.minado && this.marcado)
 			return true;
@@ -85,6 +88,7 @@ public class Espaco {
 		return false;
 	}
 
+	// Ligação botão lógico e botão gráfico
 	public void setButton(JButtonEspaco button) {
 		this.button = button;
 	}

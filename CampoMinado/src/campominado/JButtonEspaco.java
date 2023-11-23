@@ -1,8 +1,12 @@
 package campominado;
 
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+// Gráfico dos botões
 
 // Configuração dos botões
 public final class JButtonEspaco extends JButton {
@@ -19,9 +23,12 @@ public final class JButtonEspaco extends JButton {
 		this.text = "";
 		this.setText(text);
 		this.campoLogica = c;
+
+		// Botão esquerdo pressionado
 		this.addActionListener((java.awt.event.ActionEvent evt) -> {
 			botaoPressionado(false);
 		});
+		// Botão direito pressionado
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
@@ -31,11 +38,13 @@ public final class JButtonEspaco extends JButton {
 		});
 	}
 
+	// Botão Iniciar/Reiniciar
 	public void reset() {
 		this.espacoLogica.reset();
 		this.text = "";
 		this.setText(text);
 		this.setEnabled(true);
+		this.setIcon(null);
 	}
 
 	// Botão ao pressionar
@@ -49,11 +58,12 @@ public final class JButtonEspaco extends JButton {
 		this.campoGrafico.checkEstado();
 	}
 
+	// Espaço clicado
 	public void clicar() {
 		System.out.println("linha: " + linha + " coluna: " + coluna);
 		// e.clicado = true;
 
-		// Retorna numeroVizinhosMinados se o Espaco atual não possui mina
+		// Número de vizinhos minados se o espaço atual não possui mina
 		int numeroVizinhosMinados = espacoLogica.clicar();
 
 		if (this.espacoLogica.minado) {
@@ -65,20 +75,29 @@ public final class JButtonEspaco extends JButton {
 				if (!vizinho.clicado)
 					vizinho.button.clicar();
 			}
-			// return;
 		}
 
 		this.text = Integer.toString(numeroVizinhosMinados);
 		this.revela(this.text);
 	}
 
+	// Marca o espaço que supostamente tem uma mina
 	public void marcar() {
 		if (this.espacoLogica.clicado)
 			return;
 		boolean estaMarcado = this.espacoLogica.marcar();
 		if (this.espacoLogica.marcado) {
-			this.setText("M");
+			// Imagem da bandeira
+			try {
+                Image img = ImageIO.read(getClass().getResource("bandeira.png"));
+                img = img.getScaledInstance(Constantes.TAMANHO_ESPACO, Constantes.TAMANHO_ESPACO, java.awt.Image.SCALE_SMOOTH);
+                this.setIcon(new ImageIcon(img));
+			} catch (Exception ex) {
+                this.setText("M");
+                System.out.println("ERRO!");
+            }
 		} else {
+			this.setIcon(null);
 			this.setText("");
 		}
 	}
@@ -90,8 +109,22 @@ public final class JButtonEspaco extends JButton {
 		this.espacoLogica = campoLogica.getEspaco(linha, coluna);
 	}
 
+	// Revela o que tem no espaço
 	public void revela(String cod) {
-		this.setText(cod);
+		if (cod.equals("-1")) {
+			// Imagem da bomba
+			try {
+                Image img = ImageIO.read(getClass().getResource("mina.png"));
+                img = img.getScaledInstance(Constantes.TAMANHO_ESPACO, Constantes.TAMANHO_ESPACO, java.awt.Image.SCALE_SMOOTH);
+                this.setIcon(new ImageIcon(img));
+			} catch (Exception ex) {
+                this.setText("-1");
+                System.out.println("ERRO!");
+            }
+		} else {
+			this.setText(cod);
+		}
+		
 		this.setEnabled(false);
 	}
 }

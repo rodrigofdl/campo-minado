@@ -2,6 +2,8 @@ package campominado;
 
 import java.util.Random;
 
+// Lógica do campo
+
 // Campo do jogo que vai ter a matriz do espaço
 public class Campo {
 	Espaco[][] matriz;
@@ -63,6 +65,7 @@ public class Campo {
 		return matriz[linha][coluna].clicar();
 	}
 
+	// Verifica se venceu
 	public boolean isVencido() {
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
@@ -73,6 +76,7 @@ public class Campo {
 		return true;
 	}
 
+	// Verifica se perdeu
 	public boolean isPerdido() {
 		for (int i = 0; i < Constantes.NUMERO_LINHAS; i++) {
 			for (int j = 0; j < Constantes.NUMERO_COLUNAS; j++) {
@@ -83,6 +87,7 @@ public class Campo {
 		return false;
 	}
 
+	// Ligação do espaço gráfico e espaço lógico
 	public Espaco getEspaco(int linha, int coluna) {
 		return matriz[linha][coluna];
 	}
