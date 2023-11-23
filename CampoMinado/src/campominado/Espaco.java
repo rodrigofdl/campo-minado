@@ -11,6 +11,7 @@ public class Espaco {
 	boolean marcado;
 	boolean clicado;
 
+	// O ArraList vai agrupar os dados dos vizinhos
 	ArrayList<Espaco> vizinhos;
 
 	JButtonEspaco button;
@@ -27,6 +28,7 @@ public class Espaco {
 	}
 
 	// Adiciona vizinho
+	// O void indica que a função não retorna nada e não tem parâmetros
 	public void adicionarVizinhos(Espaco e) {
 		this.vizinhos.add(e);
 	}
@@ -93,6 +95,8 @@ public class Espaco {
 		this.button = button;
 	}
 
+	// O Override serve para garantir que está sobreescrevendo
+	// um método e não criando um novo
 	@Override
 	public String toString() {
 		if (this.minado)

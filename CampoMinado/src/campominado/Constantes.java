@@ -2,7 +2,9 @@ package campominado;
 
 // Constantes
 
-// Tamanho do jogo / quantidade de minas
+// Tamanho do jogo / Tamanho da Janela / quantidade de minas
+// O abstract indica que este método ainda não possui uma implementação ainda
+// e que vai ser implementado por uma classe que estiver o herdando
 public abstract class Constantes {
 	static int NUMERO_LINHAS = 6;
 	static int NUMERO_COLUNAS = 6;

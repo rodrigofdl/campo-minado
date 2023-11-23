@@ -22,6 +22,7 @@ public class JFrameCampo extends JFrame {
 	}
 
 	// Altera dificuldade
+	// O void indica que a função não retorna nada e não tem parâmetros
 	public void hardReset() {
 		CampoMinado.hardReset();
 		// O dispose serve para fechar a janela
@@ -29,9 +30,11 @@ public class JFrameCampo extends JFrame {
 	}
 
 	// Configurações da janela
+	// O private indica que este recurso só pode ser acessado por
+	// objetos da mesma classe
 	private void confIniciais() {
 		// O this serve para chamar um atributo fora do método
-		// O new serve para criar um objeto
+		// O new serve para instânciar uma classe / criar um novo objeto do mesmo tipo da classe
 		this.c = new Campo();
 		this.panel = new JPanel();
 		panel.setLayout(null);
@@ -160,7 +163,7 @@ public class JFrameCampo extends JFrame {
 		}
 	}
 
-	// Checar se venceu ou perdeu
+	// Checa se venceu ou perdeu
 	public void checkEstado() {
 		System.out.println("Verificando se venceu ou perdeu");
 		if (this.c.isVencido()) {

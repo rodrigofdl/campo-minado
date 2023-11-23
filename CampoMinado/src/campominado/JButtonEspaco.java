@@ -39,6 +39,7 @@ public final class JButtonEspaco extends JButton {
 	}
 
 	// Botão Iniciar/Reiniciar
+	// O void indica que a função não retorna nada e não tem parâmetros
 	public void reset() {
 		this.espacoLogica.reset();
 		this.text = "";
@@ -48,6 +49,8 @@ public final class JButtonEspaco extends JButton {
 	}
 
 	// Botão ao pressionar
+	// O private indica que este recurso só pode ser acessado por
+	// objetos da mesma classe
 	private void botaoPressionado(boolean mouseBotaoDireito) {
 		if (!mouseBotaoDireito) {
 			if (!this.espacoLogica.marcado)
@@ -88,6 +91,8 @@ public final class JButtonEspaco extends JButton {
 		boolean estaMarcado = this.espacoLogica.marcar();
 		if (this.espacoLogica.marcado) {
 			// Imagem da bandeira
+			// O try-catch tá sendo usado para adicionar as imagens
+			// mas o try-catch serve para tratar exceções/erro
 			try {
                 Image img = ImageIO.read(getClass().getResource("bandeira.png"));
                 img = img.getScaledInstance(Constantes.TAMANHO_ESPACO, Constantes.TAMANHO_ESPACO, java.awt.Image.SCALE_SMOOTH);
@@ -112,7 +117,7 @@ public final class JButtonEspaco extends JButton {
 	// Revela o que tem no espaço
 	public void revela(String cod) {
 		if (cod.equals("-1")) {
-			// Imagem da bomba
+			// Imagem da bomba 
 			try {
                 Image img = ImageIO.read(getClass().getResource("mina.png"));
                 img = img.getScaledInstance(Constantes.TAMANHO_ESPACO, Constantes.TAMANHO_ESPACO, java.awt.Image.SCALE_SMOOTH);

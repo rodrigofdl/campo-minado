@@ -45,6 +45,7 @@ public class Campo {
 	}
 
 	// Adiciona as minas aleatoriamente
+	// O void indica que a função não retorna nada e não tem parâmetros
 	public void adicionarMinas() {
 		int n = Constantes.NUMERO_MINAS;
 
@@ -92,6 +93,8 @@ public class Campo {
 		return matriz[linha][coluna];
 	}
 
+	// O Override serve para garantir que está sobreescrevendo
+	// um método e não criando um novo
 	@Override
 	public String toString() {
 		String str = "";
